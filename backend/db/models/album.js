@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Album.associate = function(models) {
     Album.belongsTo(models.User, { foreignKey: "userId" });
-    Album.HasMany(models.Image, { foreignKey: "albumId" });
+    Album.hasMany(models.Image, { foreignKey: "albumId" });
   };
   return Album;
 };
