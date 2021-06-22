@@ -45,4 +45,24 @@ router.post(
   }),
 );
 
+router.get('/demo', asyncHandler(async (req, res) => {
+  if (req.session.auth) {
+    // res.redirect('/tasks')
+  }
+  let random = Math.floor(Math.random() * 5000)
+  const user = db.User.build({
+    username: `DemoUser${random}`,
+    email: `demo${random}@demoUser.com`,
+    hashedPassword: "Password123!"
+  })
+
+
+  if (user) {
+    await user.save();
+    loginUser(req, res, user)
+    res.redirect('/home')
+  }
+
+}))
+
 module.exports = router;

@@ -33,43 +33,53 @@ function SignupFormPage() {
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
-      <label>
-        Email
+      <h4>Welcome to the realm of anime</h4>
+      <div className="form-input">
+        <span>Email</span>
         <input
+          placeholder="Email"
           type="text"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-      </label>
-      <label>
-        Username
+        <br/>
+
+        <span>Username</span>
         <input
+          placeholder="Username"
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
         />
-      </label>
-      <label>
-        Password
+        <br/>
+
+        <span>Password</span>
         <input
+          placeholder="Password"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-      </label>
-      <label>
-        Confirm Password
+        <br/>
+
+        <span>Confirm Password</span>
         <input
+          placeholder="Confirm Password"
           type="password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
         />
-      </label>
-      <button type="submit">Sign Up</button>
+        <button type="submit">Sign Up</button>
+      </div>
+      <div class="log-and-demo">
+      <button> <a href="/login"  class="log-in-btn" id="log-in">log in</a></button>
+            <button type="button"> <a href="/users/demo" class="demo-user-btn" id="demo-user">Demo User</a> </button>
+            <p><strong> Friendly Reminder: A demo user's data  is temporary. Upon logout, all data will be erased.</strong></p>
+      </div>
     </form>
   );
 }
