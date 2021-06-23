@@ -1,7 +1,7 @@
 body {
     display: flex;
     justify-content: center;
-    background-image: url(/home/trodriguez/June_W3/w15d4/soloProject/frontend/src/anime-images/sign-up-image.jpg);
+    background-image: url('../../anime-images/sign-up-image.jpg');
     height: 100%;
      overflow-y: scroll;
     scroll-behavior: smooth;
