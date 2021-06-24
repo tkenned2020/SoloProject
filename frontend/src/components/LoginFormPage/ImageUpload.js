@@ -7,7 +7,7 @@ export default function ImageUpload (){
         <form method="post"  enctype="multipart/form-data">
           <input type="file"
           name="image" />
-          <br /><br />
+         
           <button onClick={} type="submit" name="upload">Upload</button>
         </form>
     </body>
