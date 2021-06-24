@@ -2,7 +2,8 @@ const express = require("express");
 const asyncHandler = require('express-async-handler');
 const router = express.Router();
 const { Album, User } = require("../../db/models");
-const { requireAuth } = require("../auth");
+const { requireAuth } = require("../../utils/auth");
+const { check } = require('express-validator');
 
 const albumValidators = [
     check("title")

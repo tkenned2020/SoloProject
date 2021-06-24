@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
+const asyncHandler = require('express-async-handler');
 const { Image, User, Album, Comment } = require("../../db/models/");
-const { requireAuth } = require("../auth");
+const { requireAuth } = require("../../utils/auth");
 
 router.post("/comments", asyncHandler(async (req, res) =>{
     res.send('I\'m working!!')

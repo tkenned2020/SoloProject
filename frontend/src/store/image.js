@@ -1,20 +1,21 @@
 import { csrfFetch } from "./csrf";
 
 const SET_IMAGE = "image/setImage";
-const Delete_IMAGE = "image/deleteImage";
+const DELETE_IMAGE = "image/deleteImage";
 
-const setImage = () => { //action-creator
+const setImage = (data) => { //action-creator
     return {
         type: SET_IMAGE,
-        payload:
+        payload: data,
     }
 }
 
-export const getImages = () => async (dispatch) => {
-    const res = await csrfFetch('/api/images');
-    const images = res.json();
-    dispatch(setImage());
-    return images;
+export const getImages = (id) =>  async (dispatch) => {
+    const res = await csrfFetch(`/api/image/${id}`);
+    const data = await res.json();
+    dispatch(setImage(data.image));
+
+    return data.image;
 }
 
 //define an initialState
@@ -25,7 +26,7 @@ export default function imageReducer (state = initialState, action) {
     switch (action.type) {
         case SET_IMAGE:
             const allImages = {};
-            action.images.forEach( e => allImages[image.id] = image );
+            action.payload.forEach( (image) => allImages[image.id] = image );
         return {
             ...state,
             ...allImages,
@@ -33,3 +34,5 @@ export default function imageReducer (state = initialState, action) {
         default: return state;
     }
 }
+
+
