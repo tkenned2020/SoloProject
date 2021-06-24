@@ -32,8 +32,8 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 //recently moved to bottom of file
-router.get("/", function (req, res) {
-  res.cookie("XSRF-TOKEN", req.csrfToken());
-  res.send("Hello World!");
-});
+// router.get("/", function (req, res) {
+//   res.cookie("XSRF-TOKEN", req.csrfToken());
+//   res.send("Hello World!");
+// });
 module.exports = router;
