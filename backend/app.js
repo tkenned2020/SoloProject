@@ -6,6 +6,7 @@ const helmet = require("helmet");
 const cookieParser = require("cookie-parser");
 const { ValidationError } = require("sequelize");
 const { environment } = require("./config");
+const bodyParser = require("body-parser");
 
 const routes = require("./routes");
 
@@ -13,8 +14,8 @@ const app = express();
 
 app.use(morgan("dev"));
 app.use(cookieParser());
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 const isProduction = environment === "production";
 
@@ -27,15 +28,15 @@ app.use(
     contentSecurityPolicy: false,
   })
 );
-// app.use(
-//   csurf({
-//     cookie: {
-//       secure: isProduction,
-//       sameSite: isProduction && "Lax",
-//       httpOnly: true,
-//     },
-//   })
-// );
+app.use(
+  csurf({
+    cookie: {
+      secure: isProduction,
+      sameSite: isProduction && "Lax",
+      httpOnly: true,
+    },
+  })
+);
 
 app.use(routes);
 app.use((_req, _res, next) => {
@@ -45,6 +46,7 @@ app.use((_req, _res, next) => {
   err.status = 404;
   next(err);
 });
+
 app.use((err, req, res, next) => {
   if (err instanceof ValidationError) {
     err.errors = err.errors.map((e) => e.massage);
@@ -52,6 +54,7 @@ app.use((err, req, res, next) => {
   }
   next(err);
 });
+
 app.use((err, req, res, next) => {
   res.status(err.status || 500);
   console.error(err);

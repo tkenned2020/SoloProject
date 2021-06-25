@@ -5,7 +5,21 @@ const { Image, User, Album, Comment } = require("../../db/models/");
 const { requireAuth } = require("../../utils/auth");
 const { check } = require("express-validator");
 const upload = require("../../uploadMiddleware");
+const path = require("path");
+const fs = require("fs");
+const multer = require("multer");
 const Resize = require("../../Resize");
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb){
+    cb(null, "uploads")
+  },
+  filename: function(req, file, cb){
+    cb(null, file.originalname)
+  }
+})
+
+const uploads = multer({ storage })
 
 const imageNotFoundError = (id) => {
   const err = Error(`Image ${id} not found`);
@@ -36,33 +50,37 @@ router.get(
   "/:userId",
   // requireAuth,
   asyncHandler(async (req, res, next) => {
-    const { userId } = req.params;
-    // res.send('test')
-    const image = await Image.findAll({
+    const {userId} = req.params;
+      const image = await Image.findAll({
       where: { userId },
     });
 
-    // res.send('here')
+
     res.json({ image });
   })
 );
 
 router.post(
-  "/postImage",
+  "/",
   upload.single("image"),
-  requireAuth,
+  // requireAuth,
   imageValidators,
   asyncHandler(async (req, res) => {
-    const newImage = new Image({
-      imageName,
-    });
+
+    const image = req.file.path;
+
+    return res.json( image );
+
+    // const newImage = await Image.create({
+    //   userId: req.body.userId,
+    // });
   })
 );
 
 router.put(
   "/:imageId",
   asyncHandler(async (req, res) => {
-    const { imageId } = req.params.imageId;
+    const { imageId } = parsInt(req.params.imageId, 10);
     const image = await Image.findById(imageId);
     // const imageUpdate = await Image.update()
     const images = await Image.findAll();
@@ -72,7 +90,7 @@ router.put(
 router.delete(
   "/:imageId",
   asyncHandler(async (req, res) => {
-    const { imageId } = req.params.imageId;
+    const imageId  = parsInt(req.params.imageId, 10);
     const image = await Image.findById(imageId);
     await image.destroy();
     const images = await Image.findAll();

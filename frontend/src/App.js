@@ -5,7 +5,8 @@ import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
-import ImageDownload from "./components/ImageDownload";
+import ImageDownload from "./ImageAndComments/ImageDownload"
+import ImageUpload from "./ImageAndComments/ImageUpload"
 
 function App() {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ function App() {
     <>
       <Navigation isLoaded={isLoaded} />
       <ImageDownload />
+      <ImageUpload />
       {isLoaded && (
         <Switch>
           <Route path="/login">
@@ -34,4 +36,3 @@ function App() {
 }
 
 export default App;
-    
