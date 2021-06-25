@@ -75,14 +75,14 @@ export default function imageReducer (state = initialState, action) {
     switch (action.type) {
         case SET_IMAGE:
             const images = {};
-            action.payload.forEach( (image) => images[image.id] = image );
+            action.data.forEach( (image) => images[image.id] = image );
         return {
             ...state,
             ...images,
         };
         case SET_IMAGES:
             const allImages = {};
-            action.payload.forEach( image => {
+            action.data.forEach( image => {
                 allImages[image.id] = image
             });
             return {

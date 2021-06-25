@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector} from "react-redux";
-import 
+
 
 
 export default function ImageUpload(props) {
-  const [newImage, setNewImage] = useState([]);
-  const history = useHistory();
+  // const [newImage, setNewImage] = useState([]);
+  // const history = useHistory();
   // const getFile = (e) => {
   //   const file = e.target.files[0];
   //   if (file) {
