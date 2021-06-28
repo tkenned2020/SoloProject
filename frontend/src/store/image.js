@@ -2,17 +2,18 @@ import { csrfFetch } from "./csrf";
 
 const SET_IMAGE = "image/setImage";
 const SET_IMAGES = "image/get"
-const DELETE_IMAGE = "image/deleteImage";
+// const DELETE_IMAGE = "image/deleteImage";
 
-const setImage = (data) => { //action-creator
+export const setImage = (image) => { //action-creator
     return {
-        type: SET_IMAGE, data
+        type: SET_IMAGE, image
     }
 }
 
-const setImages = (data) => {//action-creator
+export const setImages = (image) => {
+    //action-creator
     return {
-        type: SET_IMAGES, data
+        type: SET_IMAGES, image
     }
 }
 
@@ -63,7 +64,7 @@ export const deleteImage = (imageId) => async(dispatch) => {
     });
     if(res.ok){
         const images = await res.json();
-        dispatch(setImages(images))
+        dispatch(setImage(images))
     }
 }
 
@@ -74,20 +75,17 @@ const initialState = {};
 export default function imageReducer (state = initialState, action) {
     switch (action.type) {
         case SET_IMAGE:
-            const images = {};
-            action.data.forEach( (image) => images[image.id] = image );
+            const images = {...state};
+            images[action.image.id] = action.image;
         return {
-            ...state,
-            ...images,
+            images
         };
         case SET_IMAGES:
-            const allImages = {};
-            action.data.forEach( image => {
-                allImages[image.id] = image
-            });
+            const allImages = {...state};
+            allImages[action.image.id] = action.image
+            ;
             return {
-                ...state,
-                ...allImages
+                allImages
             }
         default: return state;
     }

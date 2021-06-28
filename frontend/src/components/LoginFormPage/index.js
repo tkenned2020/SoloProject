@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import "./LoginForm.css";
 
 function LoginFormPage() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
@@ -16,12 +17,14 @@ function LoginFormPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
+    history.push("/user")
     return dispatch(sessionActions.login({ credential, password })).catch(
       async (res) => {
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);
       }
     );
+
   };
 
     return (
@@ -57,7 +60,7 @@ function LoginFormPage() {
         </div>
          <div class="sign-and-demo">
           <button> <a href="/signup"  class="sign-up-btn" id="sign-up">Sign up</a></button>
-          <button> <a href="/users/demo" class="demo-user-btn" id="demo-user">Demo User</a></button>
+          <button> <a href="/demo" class="demo-user-btn" id="demo-user">Demo User</a></button>
              <p id='demo-reminder'><strong>Friendly Reminder: A demo user's data  is temporary. Upon logout, all data will be erased.</strong></p>
         </div>
 

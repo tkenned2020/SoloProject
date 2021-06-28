@@ -1,32 +1,24 @@
-import { useState, useEffect } from "react";
-import { getImages } from "../store/image";
+import { useEffect } from "react";
+import { getImages } from "../../store/image";
 import { useSelector, useDispatch } from "react-redux";
 
-export default function ImageDownload (props){
+export default function ImageDisplay (props){
 
     const dispatch = useDispatch();
     const sessionUser = useSelector((state) => state.session.user);
-    const imageState = useSelector(state => state.imageState)
-    const imageArr = Object.values(imageState);
-    const imageArr1 = Object.keys(imageArr)
+    const image = useSelector(state => state.image)
+    const imageArr = Object.values(image);
 
-
-    console.log("......",imageArr)
-    console.log("......",sessionUser)
-    console.log(imageArr.map(word => console.log(word)))
 
  useEffect(() => {
      if(sessionUser) dispatch(getImages(sessionUser.id))
-
 
  }, [dispatch, sessionUser])
 
     return(
         <div>
-
-
-        {imageArr.map(val => (<div><h3>{val.content}</h3>
-                                <img src={val.imageUrl} />
+        {imageArr.map(val => (<div><h6>{val.content}</h6>
+                                <img src={val.imageUrl} alt={""} />
                                 <button>add a comment</button>
                                 <button>edit</button>
                                 <button>delete</button>

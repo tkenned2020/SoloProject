@@ -1,0 +1,58 @@
+.image {
+    width: 400px;
+    height: 400px;
+}
+
+.image-container {
+    display: flex;
+    justify-content: center;
+    padding: 1px;
+}
+
+.change-Btn {
+    background-color: rgba(37, 158, 63, 0.5);
+    color: rgb(12, 0, 0);
+    font-weight: bolder;
+    font-family: 'Courier New', Courier, monospace;
+    margin: 5px;
+    border-radius: 20px;
+}
+
+.change-Btn:hover {
+    color: red;
+    box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.9);
+}
+
+.destruction-Btn {
+    background-color: rgba(119, 11, 11, 0.5);
+    color: rgb(26, 2, 2);
+    font-weight: bolder;
+    font-family: 'Courier New', Courier, monospace;
+    margin: 5px;
+    border-radius: 20px;
+
+}
+
+.destruction-Btn:hover {
+    color: red;
+    box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.9);
+}
+
+.thoughts-Btn {
+    background-color: rgba(31, 22, 119, 0.5);
+    color: rgb(15, 1, 1);
+    font-weight: bolder;
+    font-family: 'Courier New', Courier, monospace;
+    margin: 5px;
+    border-radius: 20px;
+}
+
+.thoughts-Btn:hover{
+    color: red;
+    box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.9);
+}
+
+.Btns {
+    display: flex;
+
+}

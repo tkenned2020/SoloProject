@@ -1,21 +1,28 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink,  } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
-
-
 import "./Navigation.css";
+// import ImageUpload from "../ImageAndComments/ImageUpload";
 
-function Navigation({ isLoaded }) {
+export default function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
 
   let sessionLinks;
   if (sessionUser) {
     sessionLinks =
-    <div>
-    <ProfileButton user={sessionUser} />
-
-    </div>;
+    <>
+      <div className="uploadBtn">
+          <div>
+            <NavLink to="/upload">
+              Upload
+            </NavLink>
+          </div>
+      </div>
+      <div>
+        <ProfileButton user={sessionUser} />
+      </div>;
+    </>
   } else {
     sessionLinks = (
       <>
@@ -28,15 +35,15 @@ function Navigation({ isLoaded }) {
   }
 
   return (
+  <div>
     <ul>
       <li>
         <NavLink exact to="/">
-          Home
+          CelestialAnime
         </NavLink>
         {isLoaded && sessionLinks}
       </li>
     </ul>
+  </div>
   );
 }
-
-export default Navigation;

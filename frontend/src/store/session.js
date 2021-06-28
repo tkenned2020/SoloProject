@@ -10,6 +10,35 @@ const setUser = (user) => {
   };
 };
 
+export const createUser = (user) => async (dispatch) => {
+  const { images, image, username, email, password } = user;
+  const formData = new FormData();
+  formData.append("username", username);
+  formData.append("email", email);
+  formData.append("password", password);
+
+  // for multiple files
+  if (images && images.length !== 0) {
+    for (var i = 0; i < images.length; i++) {
+      formData.append("images", images[i]);
+    }
+  }
+
+  // for single file
+  if (image) formData.append("image", image);
+
+  const res = await csrfFetch(`/api/users/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+    body: formData,
+  });
+
+  const data = await res.json();
+  dispatch(setUser(data.user));
+};
+
 const removeUser = () => {
   return {
     type: REMOVE_USER,
@@ -66,6 +95,8 @@ const initialState = { user: null };
 const sessionReducer = (state = initialState, action) => {
   let newState;
   switch (action.type) {
+    // case SET_USER:
+    //   return { ...state, user: action.payload };
     case SET_USER:
       newState = Object.assign({}, state);
       newState.user = action.payload;

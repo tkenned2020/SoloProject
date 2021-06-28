@@ -5,23 +5,33 @@ import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
-import ImageDownload from "./ImageAndComments/ImageDownload"
-import ImageUpload from "./ImageAndComments/ImageUpload"
+// import ImageDisplay from "./components/ImageAndComments/ImageDisplay"
+import ImageUpload from "./components/ImageAndComments/ImageUpload"
+import ImageContainer from "./components/ImageAndComments/ImageContainer"
+import Comments from "./components/ImageAndComments/Comments";
+import EditImages from "./components/ImageAndComments/EditImage";
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
+
+
   return (
     <>
       <Navigation isLoaded={isLoaded} />
-      <ImageDownload />
-      <ImageUpload />
+
       {isLoaded && (
         <Switch>
+
+          <Route path="/user">
+            <ImageContainer />
+          </Route>
+
           <Route path="/login">
             <LoginFormPage />
           </Route>
@@ -29,7 +39,20 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-        </Switch>
+
+          <Route path="/upload">
+            <ImageUpload/>
+          </Route>
+
+          <Route path="/modify/:imageId">
+            <EditImages/>
+          </Route>
+
+          <Route path="/thoughts/:imageId">
+            <Comments/>
+          </Route>
+
+          </Switch>
       )}
     </>
   );
